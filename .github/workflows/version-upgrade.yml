@@ -107,7 +107,7 @@ jobs:
       - name: Create GitHub Release
         if: steps.check-release.outputs.release == 'true' && github.ref == 'refs/heads/main' && steps.check_merge.outputs.is_merge == 'false'
         env:
-          TOKEN: ${{ secrets.TOKEN}}
+          TOKEN: ${{ secrets.TOKEN }}
         run: |
           VERSION=$(cat VERSION)
           curl -X POST \
