@@ -86,7 +86,7 @@ jobs:
       - name: Commit and Push VERSION_UPDATE Changes
         if: steps.check_merge.outputs.is_merge == 'false'
         env:
-          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TOKEN: ${{ secrets.TOKEN }}
         run: |
           git remote set-url origin https://x-access-token:${TOKEN}@github.com/${{ github.repository }}.git
           git add VERSION
@@ -97,7 +97,7 @@ jobs:
       - name: Tag the New Version
         if: steps.check-release.outputs.tagging == 'true' && github.ref == 'refs/heads/main' && steps.check_merge.outputs.is_merge == 'false'
         env:
-          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TOKEN: ${{ secrets.TOKEN }}
         run: |
           git remote set-url origin https://x-access-token:${TOKEN}@github.com/${{ github.repository }}.git
           VERSION=$(cat VERSION)
@@ -107,7 +107,7 @@ jobs:
       - name: Create GitHub Release
         if: steps.check-release.outputs.release == 'true' && github.ref == 'refs/heads/main' && steps.check_merge.outputs.is_merge == 'false'
         env:
-          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TOKEN: ${{ secrets.TOKEN}}
         run: |
           VERSION=$(cat VERSION)
           curl -X POST \
